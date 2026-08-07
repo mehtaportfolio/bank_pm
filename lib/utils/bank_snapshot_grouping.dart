@@ -20,22 +20,8 @@ List<BankSnapshotSection> groupBankSnapshotsByBankName(
     groupedSnapshots.putIfAbsent(bankName, () => []).add(snapshot);
   }
 
-  int _bankOrder(String bankName) {
-    final normalizedBankName = bankName.toUpperCase();
-    if (normalizedBankName == 'SBI') return 0;
-    if (normalizedBankName == 'PNB') return 1;
-    if (normalizedBankName == 'AXIS') return 2;
-    return 1000;
-  }
-
   final sortedEntries = groupedSnapshots.entries.toList()
-    ..sort((a, b) {
-      final orderComparison = _bankOrder(a.key).compareTo(_bankOrder(b.key));
-      if (orderComparison != 0) {
-        return orderComparison;
-      }
-      return a.key.toLowerCase().compareTo(b.key.toLowerCase());
-    });
+    ..sort((a, b) => a.key.toLowerCase().compareTo(b.key.toLowerCase()));
 
   return sortedEntries.map((entry) {
     final sortedSnapshots = List<BankBalanceSnapshot>.from(entry.value)

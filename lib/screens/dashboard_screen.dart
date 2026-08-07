@@ -448,15 +448,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     return Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(bottom: 8),
+                                                        Container(
+                                                          width: double.infinity,
+                                                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.orange,
+                                                            borderRadius: BorderRadius.circular(8),
+                                                          ),
                                                           child: Text(
                                                             section.bankName,
                                                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                                               fontWeight: FontWeight.w700,
+                                                              color: Colors.white,
                                                             ),
                                                           ),
                                                         ),
+                                                        const SizedBox(height: 8),
                                                         ...section.snapshots.map((snapshot) {
                                                           return Padding(
                                                             padding: const EdgeInsets.only(bottom: 8),
@@ -467,41 +474,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                               elevation: 2,
                                                               child: Padding(
                                                                 padding: const EdgeInsets.all(16),
-                                                                child: Column(
+                                                                child: Row(
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
-                                                                    Text(
-                                                                      _dateFormat.format(snapshot.capturedAt.toLocal()),
-                                                                      style: const TextStyle(
-                                                                        fontSize: 14,
-                                                                        fontWeight: FontWeight.w600,
+                                                                    Expanded(
+                                                                      child: Column(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            _dateFormat.format(snapshot.capturedAt.toLocal()),
+                                                                            style: const TextStyle(
+                                                                              fontSize: 14,
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(height: 8),
+                                                                          Text('Account: ${snapshot.accountNumber ?? 'Unknown'}'),
+                                                                          Text('Balance: ₹${snapshot.balance.toStringAsFixed(2)}'),
+                                                                        ],
                                                                       ),
                                                                     ),
-                                                                    const SizedBox(height: 8),
-                                                                    Text('Account: ${snapshot.accountNumber ?? 'Unknown'}'),
-                                                                    Text('Balance: ₹${snapshot.balance.toStringAsFixed(2)}'),
-                                                                    const SizedBox(height: 12),
-                                                                    Row(
-                                                                      children: [
-                                                                        ElevatedButton.icon(
-                                                                          onPressed: snapshot.id != null
-                                                                              ? () => _showEditSnapshotDialog(snapshot.id!)
-                                                                              : null,
-                                                                          icon: const Icon(Icons.edit, size: 18),
-                                                                          label: const Text('Edit'),
-                                                                        ),
-                                                                        const SizedBox(width: 12),
-                                                                        ElevatedButton.icon(
-                                                                          style: ElevatedButton.styleFrom(
-                                                                            backgroundColor: Colors.redAccent,
-                                                                          ),
-                                                                          onPressed: snapshot.id != null
-                                                                              ? () => _confirmDeleteSnapshot(snapshot.id!)
-                                                                              : null,
-                                                                          icon: const Icon(Icons.delete, size: 18),
-                                                                          label: const Text('Delete'),
-                                                                        ),
-                                                                      ],
+                                                                    IconButton(
+                                                                      onPressed: snapshot.id != null
+                                                                          ? () => _showEditSnapshotDialog(snapshot.id!)
+                                                                          : null,
+                                                                      icon: const Icon(Icons.edit),
+                                                                      tooltip: 'Edit',
                                                                     ),
                                                                   ],
                                                                 ),
@@ -524,15 +522,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(bottom: 8),
+                                                          Container(
+                                                            width: double.infinity,
+                                                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.orange,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                            ),
                                                             child: Text(
                                                               section.bankName,
                                                               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                                                 fontWeight: FontWeight.w700,
+                                                                color: Colors.white,
                                                               ),
                                                             ),
                                                           ),
+                                                          const SizedBox(height: 8),
                                                           SingleChildScrollView(
                                                             scrollDirection: Axis.horizontal,
                                                             child: DataTable(
@@ -557,14 +562,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                                             : null,
                                                                         icon: const Icon(Icons.edit),
                                                                         tooltip: 'Edit',
-                                                                        visualDensity: VisualDensity.compact,
-                                                                      ),
-                                                                      IconButton(
-                                                                        onPressed: snapshotId != null
-                                                                            ? () => _confirmDeleteSnapshot(snapshotId)
-                                                                            : null,
-                                                                        icon: const Icon(Icons.delete),
-                                                                        tooltip: 'Delete',
                                                                         visualDensity: VisualDensity.compact,
                                                                       ),
                                                                     ],

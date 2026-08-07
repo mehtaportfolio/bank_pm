@@ -33,7 +33,7 @@ void main() {
 
     final sections = groupBankSnapshotsByBankName(snapshots);
 
-    expect(sections.map((section) => section.bankName), ['SBI', 'PNB', 'AXIS']);
+    expect(sections.map((section) => section.bankName), ['AXIS', 'PNB', 'SBI']);
     expect(sections[2].snapshots.map((snapshot) => snapshot.accountNumber), ['1234', '5678']);
   });
 }
