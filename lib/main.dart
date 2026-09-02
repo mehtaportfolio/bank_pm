@@ -26,8 +26,9 @@ Future<void> main() async {
     },
   );
 
-  // Initialize Monthly Scheduler (DISABLED: monthly balance fetch is manual via play button)
-  // await MonthlySchedulerService.initialize();
+  // Initialize WorkManager for the manual monthly processor task.
+  await MonthlySchedulerService.initialize();
+  // Monthly balance fetch remains manual via the play button.
   // await MonthlySchedulerService.scheduleMonthlyTask();
 
 
